@@ -3,6 +3,7 @@
 A simple TODO app built with Node.js, MongoDB and Angular.
 
 Node provides the RESTful API. Angular provides the frontend and accesses the API. MongoDB stores the data.
+Typical time taken is 2 to 3 hours.  Please complete in one sitting, committing changes often. 
 
 ## Requirements
 
