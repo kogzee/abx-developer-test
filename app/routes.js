@@ -18,28 +18,32 @@ module.exports = function(app) {
     Todo.create({
       'text': req.body.text,
       'done': false
-    }, function(err, todo) {
-      if (err) {
+    })
+    .then(
+      function _success(todo) {
+        getTodos(res);
+      },
+      function _error( err ) {
         var error = extractDBErrors( err, req.body.text );
         res.status( error.code ).json( error );
-      } else {
-        getTodos(res);
       }
-    });
+    );
 
   });
 
   app.delete('/api/todos/:todo_id', function(req, res) {
     Todo.remove({
       '_id': req.params.todo_id
-    }, function(err, todo) {
-      if (err) {
+    })
+    .then(
+      function _success(todo) {
+        getTodos(res);
+      },
+      function _error( err ) {
         var error = extractDBErrors( err );
         res.status( error.code ).json( error );
-      } else {
-        getTodos(res);
       }
-    });
+    );
   });
 
   app.get('/', function(req, res) {
