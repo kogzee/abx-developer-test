@@ -6,6 +6,7 @@ var Todo = new Schema({
     'type': String,
     'required': 'Please enter a Todo'
   },
+  'dateAdded': { 'type': Date, 'default': Date.now },
   'done': { 'type': Boolean } /* -1 = not done */
 });
 

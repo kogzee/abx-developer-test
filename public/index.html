@@ -52,14 +52,20 @@
 			</div>
 		</div>
 
-		<div id="todo-list" class="row">
-			<div class="col-sm-4 col-sm-offset-4">
-				<div class="checkbox" ng-repeat="todo in todos">
+		<div id="todo-list" class="row" ng-repeat="todo in todos">
+			<!-- checkbox //-->
+			<div class="col-sm-4 col-sm-offset-3">
+				<div class="checkbox">
 					<label>
 						<input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
 					</label>
 				</div>
 			</div>
+			<!-- / checkbox //-->
+			<!-- date //-->
+			<div class="col-sm-2 text-right" ng-bind="todo.dateAdded|date:'dd MMM yy hh:mm a'">
+			</div>
+			<!-- / date //-->
 		</div>
 	</div>
 </body>
