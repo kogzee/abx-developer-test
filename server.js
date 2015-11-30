@@ -20,4 +20,4 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 require('./app/routes.js')(app);
 
 app.listen(port);
-debug("App listening on: http://127.0.0.1:" + port);
+debug("App listening on: http://127.0.0.1:%s", port);
