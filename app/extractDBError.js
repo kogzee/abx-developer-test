@@ -1,15 +1,17 @@
+'use strict';
 /**
  * Extracts errors from mongoDB and Mongoose errors, transforms them into a single JSON format
  * @param  {Object} err Error from Mongoose or MongoDB
  * @return {Object}     Formatted error
  */
-function getError( err ) {
+function getError( err, info ) {
 	var msg = '', error = {};
-
 	// Register of friendly error messages
 	var errors = {
-		11000: 'You already have that todo item in your list'
+		11000: '\'%s\' is already in the Todo list'
 	};
+
+	info = info || '';
 
 	if( err && err.code ) {
 		// MongoDB errors
@@ -28,8 +30,11 @@ function getError( err ) {
 			}
 		}
 	} else {
-		error = { 'code': 500, 'message': err.errors[key].message };
+		error = { 'code': 500, 'message': 'Unknown error' };
 	}
+
+	// replace %s, with message
+	error.message = error.message.replace('%s', info); // This wll be handdled by ES6 soon
 
 	return error;
 }

@@ -10,6 +10,7 @@ angular.module('todoController', [])
           $scope.formData = {};
           $scope.todos = data;
           $scope.loading = false;
+          $scope.error = null;
         });
     }
 
@@ -39,4 +40,8 @@ angular.module('todoController', [])
           $scope.todos = data;
         });
     };
+
+    $scope.removeError = function() {
+      $scope.error = null;
+    }
   }]);

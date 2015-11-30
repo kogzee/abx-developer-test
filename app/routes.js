@@ -20,7 +20,7 @@ module.exports = function(app) {
       'done': false
     }, function(err, todo) {
       if (err) {
-        var error = extractDBErrors( err );
+        var error = extractDBErrors( err, req.body.text );
         res.status( error.code ).json( error );
       } else {
         getTodos(res);

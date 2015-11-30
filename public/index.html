@@ -29,7 +29,10 @@
 
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="alert alert-danger" ng-if="error" ng-bind="error" ng-click="error=null"></div>
+				<div class="alert alert-danger" ng-if="error">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close" ng-click="removeError()">&times;</a>
+					<span ng-bind="error" ></span>
+				</div>
 			</div>
 		</div>
 
