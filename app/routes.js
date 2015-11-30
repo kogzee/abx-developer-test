@@ -1,10 +1,17 @@
 var Todo = require('./models/todo');
 var extractDBErrors = require('./extractDBError');
 
+/**
+ * Using the default mongo $sort function
+ * This has an issue of not sorting upper and lower case strings as equals
+ * @param  {Object) query query object as passed through from HTTP request
+ * @return {Object}       mongoose friendly sort object
+ */
 function computeSort( query ) {
   var sort = {}, order;
   if( query.sort && query.order ) {
     order = parseInt(query.order );
+    // Test NAN and infinite etc.
     if(!isFinite(order)) {
       order = 1;
     }
@@ -62,9 +69,10 @@ module.exports = function(app) {
     .remove({
       '_id': req.params.todo_id
     })
+    .exec()
     .then(
       function _success(todo) {
-        getTodos(res);
+        getTodos(req, res);
       },
       function _error( err ) {
         var error = extractDBErrors( err );
