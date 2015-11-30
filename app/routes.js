@@ -1,27 +1,53 @@
 var Todo = require('./models/todo');
 var extractDBErrors = require('./extractDBError');
 
-function getTodos(res) {
-  Todo.find(function(err, todos) {
-    if (err) res.send(err)
-    res.json(todos);
-  });
+function computeSort( query ) {
+  var sort = {}, order;
+  if( query.sort && query.order ) {
+    order = parseInt(query.order );
+    if(!isFinite(order)) {
+      order = 1;
+    }
+    sort[ query.sort ] = parseInt( order );
+  } else {
+    sort = { 'dateAdded': -1 };
+  }
+
+  return sort;
+}
+
+function getTodos(req, res) {
+  var sort = computeSort( req.query );
+  
+  Todo
+    .find()
+    .sort( sort )
+    .exec()
+    .then(
+      function _success( todos ) {
+        res.status(200).json(todos);
+      },
+      function _error( err ) {
+        res.status(401).json(err);
+      }
+    )
 };
 
 module.exports = function(app) {
 
   app.get('/api/todos', function(req, res) {
-    getTodos(res);
+    getTodos(req, res);
   });
 
   app.post('/api/todos', function(req, res) {
-    Todo.create({
+    Todo
+    .create({
       'text': req.body.text,
       'done': false
     })
     .then(
       function _success(todo) {
-        getTodos(res);
+        getTodos(req, res);
       },
       function _error( err ) {
         var error = extractDBErrors( err, req.body.text );
@@ -32,7 +58,8 @@ module.exports = function(app) {
   });
 
   app.delete('/api/todos/:todo_id', function(req, res) {
-    Todo.remove({
+    Todo
+    .remove({
       '_id': req.params.todo_id
     })
     .then(

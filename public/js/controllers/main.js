@@ -2,10 +2,14 @@ angular.module('todoController', [])
   .controller('mainController', ['$scope', '$http', 'Todos', function($scope, $http, Todos) {
     $scope.formData = {};
     $scope.error = null;
+    $scope.orderBy = {
+      'sort': 'text',
+      'order': -1
+    };
 
     function loadItems() {
       $scope.loading = true;
-      Todos.get()
+      Todos.get($scope.orderBy)
         .success(function(data) {
           $scope.formData = {};
           $scope.todos = data;
@@ -45,4 +49,11 @@ angular.module('todoController', [])
     $scope.removeError = function() {
       $scope.error = null;
     }
+
+    $scope.$watch('orderBy.order', function( newVal, oldVal ){
+      if(newVal) {
+        $scope.orderBy.sort = 'text';
+        loadItems();
+      }
+    });
   }]);

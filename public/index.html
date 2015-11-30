@@ -45,6 +45,14 @@
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
 					</div>
+					<div class="form-group">
+						<label class="radio-inline">
+							<input type="radio" ng-model="orderBy.order" value="-1"> A-Z
+						</label>
+						<label class="radio-inline">
+							<input type="radio" ng-model="orderBy.order" value="1"> Z-A
+						</label>
+					</div>
 					<p class="text-center" ng-show="loading">
 						<span class="fa fa-spinner fa-spin fa-3x"></span>
 					</p>
