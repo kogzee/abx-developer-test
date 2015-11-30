@@ -27,6 +27,12 @@
 			<p>There are {{ todos.length }} items in your list!</p>
 		</div>
 
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="alert alert-danger" ng-if="error" ng-bind="error" ng-click="error=null"></div>
+			</div>
+		</div>
+
 		<div id="todo-form" class="row">
 			<div class="col-sm-8 col-sm-offset-2 text-center">
 				<form>
