@@ -14,9 +14,15 @@ routes(app);
 describe('app/routes.js tests', function() {
   before(function mockCallsToMongoDb() {
     routes.__set__('Todo', {
-      find: function find(conditions, projection, options, callback) {
-        var payload = [{ text: 'Todo 1' }, { text: 'Todo 2' }, { text: 'Todo 3' }, { text: 'Todo 4' }, { text: 'Todo 5' }, { text: 'Todo 6' }];
-        conditions(null, payload);
+      find: function find() {
+        //to mock mongoose promises, needs to return an .exec() function that returns a promise
+        this.exec = function(){
+          return new Promise(function(resolve, reject) {
+            var payload = [{ text: 'Todo 1' }, { text: 'Todo 2' }, { text: 'Todo 3' }, { text: 'Todo 4' }, { text: 'Todo 5' }, { text: 'Todo 6' }];
+            resolve(payload);
+          });
+        }
+        return this;
       }
     });
   });
