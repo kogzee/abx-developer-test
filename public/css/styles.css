@@ -13,3 +13,15 @@ body {
 #todo-form {
   margin-bottom: 50px;
 }
+
+.ng-invalid.ng-dirty {
+  border-color: red;
+  border-width: 2px;
+}
+
+.help-block {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: red; 
+}

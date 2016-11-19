@@ -29,9 +29,11 @@
 
 		<div id="todo-form" class="row">
 			<div class="col-sm-8 col-sm-offset-2 text-center">
-				<form>
+				<form name="todoForm" novalidate>
 					<div class="form-group">
-						<input type="text" class="form-control input-lg text-center" placeholder="What do you need to do?" ng-model="formData.text">
+						<input type="text" name="todotext" class="form-control input-lg text-center" placeholder="What do you need to do?" required ng-model="formData.text">
+						  <!-- show an error if this isn't filled in -->
+    					  <div class="help-block" ng-show="todoForm.todotext.$dirty && submitted && todoForm.todotext.$error.required">Todo item is required</div>
 					</div>
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>

@@ -2,6 +2,7 @@ angular.module('todoController', [])
   .controller('mainController', ['$scope', '$http', 'Todos', function($scope, $http, Todos) {
     $scope.formData = {};
     $scope.loading = true;
+    $scope.submitted = false;
 
     Todos.get()
       .success(function(data) {
@@ -10,6 +11,8 @@ angular.module('todoController', [])
       });
 
     $scope.createTodo = function() {
+      $scope.submitted = true;
+      $scope.todoForm.$setDirty();
       if ($scope.formData.text != undefined) {
         $scope.loading = true;
 
@@ -18,6 +21,8 @@ angular.module('todoController', [])
             $scope.loading = false;
             $scope.formData = {};
             $scope.todos = data;
+            $scope.submitted = false;
+            $scope.todoForm.$setPristine();
           });
       }
     };
