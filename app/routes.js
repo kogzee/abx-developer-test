@@ -8,10 +8,6 @@ function getTodos(res) {
     .then(null, function (err) {
       res.send(err);
     });
-  // Todo.find(function(err, todos) {
-  //   if (err) res.send(err)
-  //   res.json(todos);
-  // });
 };
 
 module.exports = function (app) {
@@ -24,8 +20,7 @@ module.exports = function (app) {
     Todo.create({
       text: req.body.text,
       done: false
-    }).exec()
-      .then(function (todo) {
+    }).then(function (todo) {
         getTodos(res);
       })
       .then(null, function (err) {
