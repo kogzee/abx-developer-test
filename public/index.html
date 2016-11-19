@@ -33,7 +33,7 @@
 					<div class="form-group">
 						<input type="text" name="todotext" class="form-control input-lg text-center" placeholder="What do you need to do?" required ng-model="formData.text">
 						  <!-- show an error if this isn't filled in -->
-    					  <div class="help-block" ng-show="todoForm.todotext.$dirty && submitted && todoForm.todotext.$error.required">Todo item is required</div>
+    					  <div class="error-block" ng-show="submitted && todoForm.todotext.$error.required">Please enter a Todo</div>
 					</div>
 					<div class="form-group">
 						<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
