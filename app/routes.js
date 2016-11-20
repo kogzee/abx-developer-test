@@ -17,14 +17,23 @@ module.exports = function (app) {
   });
 
   app.post('/api/todos', function (req, res) {
+    var todoText = req.body.text;
     Todo.create({
-      text: req.body.text,
+      text: todoText,
       done: false
     }).then(function (todo) {
         getTodos(res);
       })
       .then(null, function (err) {
-        res.send(err);
+        if (err.code === 11000){
+          res.status(400);
+          res.send({message: todoText + ' is already in the Todo list'});
+        }
+        else {
+          res.status(500);
+          res.send({message:err.message});
+        }
+      
       });
   });
 
