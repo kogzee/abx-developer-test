@@ -3,6 +3,7 @@ angular.module('todoController', [])
     $scope.formData = {};
     $scope.loading = true;
     $scope.submitted = false;
+    $scope.sortReverse = false;
     $scope.errorMessage = '';
 
     Todos.get()
